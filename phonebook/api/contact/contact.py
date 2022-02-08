@@ -1,9 +1,12 @@
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 from django.http import JsonResponse
 from django.views import View
 from phonebook.models import Contacts
 from phonebook.serializer import ContactsSerializer
 
-class Contact(View):
+class Contact(APIView):
     
     def get(self, request):
         
@@ -14,7 +17,7 @@ class Contact(View):
         
         serialized = ContactsSerializer(from_db_contact)
         
-        return JsonResponse({
+        return Response({
             'code' : 200,
             'message' : '연락처 - GET 테스트',    
             'data' : {
@@ -25,7 +28,7 @@ class Contact(View):
     
     def post(self, request):
         
-        return JsonResponse({
+        return Response({
             'code' : 200,
             'message' : '연락처 - POST 테스트',
             'data' : {
