@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from phonebook.models import Users
+from phonebook.models import Users, Contacts
 
 # Create your views here.
 
@@ -13,12 +13,17 @@ def json_test(request):
     # 모든 사용자 목록 불러오기 테스트
     from_db_users = Users.objects.all()
     
+    
     users = [user.get_data_object() for user in from_db_users]
+    
+    from_db_contacts = Contacts.objects.all()
+    contacts = [contact.get_data_object() for contact in from_db_contacts]
     
     my_dict = {
         'code' : 200,
         'message' : 'JSON이 내려오는 지 테스트 중',
         'users from db' : users,
+        'contacts from db' : contacts,
     }
     
     return JsonResponse(my_dict)

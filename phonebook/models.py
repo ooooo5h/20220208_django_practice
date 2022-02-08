@@ -12,10 +12,14 @@ class Contacts(models.Model):
     # DB수행결과를 DICT로 변경해주는 메쏘드 추가
     def get_data_object(self) :
         data = {
-            'email' : self.email,
             'name' : self.name,
-            'created_at' : str(self.created_at),
+            'phone_num' : self.phone_num,
+            'email' : self.email,
+            'memo' : self.memo,
+            'created_at' : self.created_at,
         }
+        
+        return data
 
     class Meta:
         managed = False
@@ -27,6 +31,16 @@ class Users(models.Model):
     password = models.CharField(max_length=50)
     nickname = models.CharField(max_length=50)
     created_at = models.DateTimeField()
+
+    # DB수행결과를 DICT로 변경해주는 메쏘드 추가
+    def get_data_object(self) :
+        data = {
+            'email' : self.email,
+            'nickname' : self.nickname,
+            'created_at' : str(self.created_at),
+        }
+        return data
+    
 
     class Meta:
         managed = False
