@@ -17,6 +17,7 @@ class Contacts(models.Model):
             'email' : self.email,
             'memo' : self.memo,
             'created_at' : str(self.created_at),
+            'user' : self.user.get_data_object()
         }
         
         return data
