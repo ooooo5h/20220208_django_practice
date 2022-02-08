@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from phonebook.views import test_home
+from phonebook.views import test_home, json_test
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', test_home, name='home'),
+    path('json/', json_test, name='json'),
 ]
