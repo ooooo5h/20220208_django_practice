@@ -13,12 +13,12 @@ def json_test(request):
     # 모든 사용자 목록 불러오기 테스트
     from_db_users = Users.objects.all()
     
-    # users = []
+    users = [user.get_data_object() for user in from_db_users]
     
     my_dict = {
         'code' : 200,
         'message' : 'JSON이 내려오는 지 테스트 중',
-        'users from db' : from_db_users,
+        'users from db' : users,
     }
     
     return JsonResponse(my_dict)

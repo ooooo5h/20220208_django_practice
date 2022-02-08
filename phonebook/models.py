@@ -8,6 +8,14 @@ class Contacts(models.Model):
     email = models.CharField(max_length=50)
     memo = models.TextField()
     created_at = models.DateTimeField()
+    
+    # DB수행결과를 DICT로 변경해주는 메쏘드 추가
+    def get_data_object(self) :
+        data = {
+            'email' : self.email,
+            'name' : self.name,
+            'created_at' : str(self.created_at),
+        }
 
     class Meta:
         managed = False
