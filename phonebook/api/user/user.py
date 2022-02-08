@@ -3,6 +3,7 @@
 from django.http import JsonResponse
 from django.views import View
 from phonebook.models import Users
+from phonebook.serializer import UserSerializer
 
 class User(View):
     
@@ -13,12 +14,18 @@ class User(View):
         # 필터 + 파라미터 기본 조합
         from_db_user = Users.objects.filter(email=request.GET['email']).first()
         
-        if from_db_user :      
+        if from_db_user :    
+            
+            # 찾아낸 Users에 해당하는 객체를 dict로 변환하자 어떻게?
+            # 만든 Serializer 클래스를 활용해서!            
+            serializer = UserSerializer(from_db_user)
+              
             return JsonResponse( {
                 'code' : 200,
                 'message' : '임시 - GET 테스트',
-                'user' : from_db_user.get_data_object(),
+                'user' : serializer.data,
             } )
+            
         else : 
             return JsonResponse( {
                 'code' : 400,
