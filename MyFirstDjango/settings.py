@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'MyFirstDjango.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # mysql로 변경
+        'HOST' : 'finalproject.cbqjwimiu76h.ap-northeast-2.rds.amazonaws.com',   # 접속할 DB서버 주소
+        'PORT' : '3306', # MySQL이 주로 사용하는 3306번 포트로 설정
+        'USER' : 'admin',
+        'PASSWORD' : 'Vmfhwprxm!123',  # DB 접속 아이디와 비밀번호 
+        'NAME': 'test_phone_book', # 호스트 내부에서 사용할 DB의 이름
     }
 }
 
