@@ -10,14 +10,22 @@ class User(View):
     def get(self, request):
         
         # 파라미터의 email항목을 뽑아서 검색에 활용
+        # 필터 + 파라미터 기본 조합
         from_db_user = Users.objects.filter(email=request.GET['email']).first()
-                
-        return JsonResponse( {
-            'code' : 200,
-            'message' : '임시 - GET 테스트',
-            'user' : from_db_user.get_data_object(),
-        } )
         
+        if from_db_user :      
+            return JsonResponse( {
+                'code' : 200,
+                'message' : '임시 - GET 테스트',
+                'user' : from_db_user.get_data_object(),
+            } )
+        else : 
+            return JsonResponse( {
+                'code' : 400,
+                'message' : '해당 이메일 사용하는 사람 없음',
+            }, status=400 )
+            
+            
         
     def post(self, request):
         return JsonResponse( {
