@@ -70,6 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'MyFirstDjango.wsgi.application'
 
+APPEND_SLASH = False
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
