@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.views import View
 from phonebook.models import Contacts
+from phonebook.serializer import ContactsSerializer
 
 class Contact(View):
     
@@ -11,11 +12,13 @@ class Contact(View):
         
         from_db_contact = Contacts.objects.filter(name=search_name).first()
         
+        serialized = ContactsSerializer(from_db_contact)
+        
         return JsonResponse({
             'code' : 200,
             'message' : '연락처 - GET 테스트',    
             'data' : {
-                'contact' : from_db_contact.get_data_object(),
+                'contact' : serialized.data,
             }
         })
         
