@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from phonebook.views import test_home, json_test
 from phonebook.api.user import User
 from phonebook.api.contact import Contact
@@ -29,10 +29,13 @@ schema_view = get_schema_view(
     openapi.Info(
         title='장고 테스트 - 전화번호부 관련',
         default_version='v1',
-        description='장고를 이용한 ORM 등등의 테스트를 진행하고 있습니다.',
+        description='장고를 이용한 ORM 등등의 테스트 진행.',
+        terms_of_service="https://google.com/policies/terms",
+        contact=openapi.Contact(name='Tester', email='test@test.com'),
+        license=openapi.License(name='TestLicense')
     ),
     public=True,
-    permission_classes=(AllowAny)
+    permission_classes=(AllowAny,)
 )
 
 
@@ -42,6 +45,11 @@ urlpatterns = [
     path('json/', json_test, name='json'),
     path('user', User.as_view(), name='user'),
     path('contact', Contact.as_view(), name='contact'),
+    
+    # swagger 관련된 URL들을 세팅 -> api/docs가 실제 문서의 주소
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name="schema-json"),
+    re_path(r'^api/docs$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 
     
