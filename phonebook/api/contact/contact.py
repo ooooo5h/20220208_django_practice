@@ -6,7 +6,10 @@ class Contact(View):
     
     def get(self, request):
         
-        from_db_contact = Contacts.objects.filter(name='전은형').first()
+        # request의 기능 중 메쏘드 이름['파라미터'] 방식으로, 실제 파라미터값을 추출하자
+        search_name = request.GET['name']
+        
+        from_db_contact = Contacts.objects.filter(name=search_name).first()
         
         return JsonResponse({
             'code' : 200,
@@ -21,5 +24,8 @@ class Contact(View):
         
         return JsonResponse({
             'code' : 200,
-            'message' : '연락처 - POST 테스트'
+            'message' : '연락처 - POST 테스트',
+            'data' : {
+                '임시항목' : request.POST['email'],
+            }
         })
