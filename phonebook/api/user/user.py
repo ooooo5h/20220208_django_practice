@@ -1,11 +1,12 @@
 # 사용자 관련 기능들을 담당하는 API
 
-from django.http import JsonResponse
-from django.views import View
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 from phonebook.models import Users
 from phonebook.serializer import UserSerializer
 
-class User(View):
+class User(APIView):
     
     # get메쏘드로 접근 => 특정 사용자 조회(임시)
     def get(self, request):
@@ -20,14 +21,14 @@ class User(View):
             # 만든 Serializer 클래스를 활용해서!            
             serializer = UserSerializer(from_db_user)
               
-            return JsonResponse( {
+            return Response( {
                 'code' : 200,
                 'message' : '임시 - GET 테스트',
                 'user' : serializer.data,
             } )
             
         else : 
-            return JsonResponse( {
+            return Response( {
                 'code' : 400,
                 'message' : '해당 이메일 사용하는 사람 없음',
             }, status=400 )
@@ -35,7 +36,7 @@ class User(View):
             
         
     def post(self, request):
-        return JsonResponse( {
+        return Response( {
             'code' : 200,
             'message' : '임시 - POST 테스트',
         } )
