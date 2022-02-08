@@ -19,6 +19,23 @@ from phonebook.views import test_home, json_test
 from phonebook.api.user import User
 from phonebook.api.contact import Contact
 
+# swagger 관련된 모듈을 import
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework.permissions import AllowAny
+
+# swagger에 적는 프로젝트의 전반적인 정보를 설정하는 부분
+schema_view = get_schema_view(
+    openapi.Info(
+        title='장고 테스트 - 전화번호부 관련',
+        default_version='v1',
+        description='장고를 이용한 ORM 등등의 테스트를 진행하고 있습니다.',
+    ),
+    public=True,
+    permission_classes=(AllowAny)
+)
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', test_home, name='home'),
