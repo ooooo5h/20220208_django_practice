@@ -13,4 +13,4 @@ def json_test(request):
         'message' : 'JSON이 내려오는 지 테스트 중',
     }
     
-    return my_dict
+    return JsonResponse(my_dict)
