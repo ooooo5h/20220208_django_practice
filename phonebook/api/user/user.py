@@ -3,11 +3,25 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
 from phonebook.models import Users
 from phonebook.serializer import UserSerializer
 
 class User(APIView):
     
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                'email',
+                openapi.IN_QUERY,
+                description='필터에 적용한 이메일 입력',
+                required=True,
+                type=openapi.TYPE_STRING,
+            ),
+        ]
+    )
     # get메쏘드로 접근 => 특정 사용자 조회(임시)
     def get(self, request):
         
