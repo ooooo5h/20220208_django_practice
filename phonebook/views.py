@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from phonebook.models import Users
 
 # Create your views here.
 
@@ -8,9 +9,16 @@ def test_home(request):
     return HttpResponse(content)
 
 def json_test(request):
+    
+    # 모든 사용자 목록 불러오기 테스트
+    from_db_users = Users.objects.all()
+    
+    # users = []
+    
     my_dict = {
         'code' : 200,
         'message' : 'JSON이 내려오는 지 테스트 중',
+        'users from db' : from_db_users,
     }
     
     return JsonResponse(my_dict)
